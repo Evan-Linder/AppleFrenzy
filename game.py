@@ -36,7 +36,7 @@ class Game:
         current_time = pygame.time.get_ticks()  # get the current time
         if current_time - self.last_spawn_time > self.APPLE_SPAWN_DELAY:  # check if enough time has passed since last spawn
             x = random.randint(0, self.WIDTH)  # choose a random x coordinate for apples
-            y = random.randint(0, self.HEIGHT // 2)  # choose a random y coordinate for apples, avoiding the bottom half of the window
+            y = random.randint(0, self.HEIGHT)  # choose a random y coordinate for apples, avoiding the bottom half of the window
             self.apples.append((x, y))
             self.last_spawn_time = current_time  # update last spawn time
 
@@ -66,7 +66,7 @@ class Game:
 
     def draw_score(self):
         score_text = self.font.render(f"Score: {self.score}", True, self.RED)
-        self.win.blit(score_text, (10, 10))  # draw the score at (10, 10)
+        self.win.blit(score_text, (self.WIDTH * 0.4, 10))  # draw the score at (10, 10)
 
     def run_game(self):
         running = True
