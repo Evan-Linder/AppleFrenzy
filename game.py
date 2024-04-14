@@ -11,6 +11,7 @@ class Game:
     APPLE_SPAWN_DELAY = 1200
     FRAME_DELAY = 250 
     AVATAR_SPEED = 0.03 
+    MAX_SCORE = 30
 
     def __init__(self):
         # initialize
@@ -36,7 +37,7 @@ class Game:
         current_time = pygame.time.get_ticks()  # get the current time
         if current_time - self.last_spawn_time > self.APPLE_SPAWN_DELAY:  # check if enough time has passed since last spawn
             x = random.randint(0, self.WIDTH)  # choose a random x coordinate for apples
-            y = random.randint(0, self.HEIGHT)  # choose a random y coordinate for apples, avoiding the bottom half of the window
+            y = random.randint(0, self.HEIGHT)  # choose a random y coordinate for apple
             self.apples.append((x, y))
             self.last_spawn_time = current_time  # update last spawn time
 
@@ -52,6 +53,8 @@ class Game:
             if dino_rect.colliderect(apple_rect):
                 self.apples.remove(apple_pos)
                 self.score += 1  # increment score when apple is picked up
+                if self.score > self.MAX_SCORE:
+                    pygame.quit()
 
     def draw_avatar(self):
         # Draw the current frame of the avatar animation at its current position
